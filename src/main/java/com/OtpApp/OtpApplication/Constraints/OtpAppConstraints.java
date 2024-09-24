@@ -8,7 +8,7 @@ public class OtpAppConstraints {
 
     public static final String DELIMITER = "$";
     public static final String RANDOMSTR = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
-
     public static final int SECRETSIZE = 16 ;
+    public static final CharSequence REACTIVATE = "reactivate";
+    public static final CharSequence ACTIVATE = "activate";
 }

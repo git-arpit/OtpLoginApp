@@ -1,17 +1,16 @@
 package com.OtpApp.OtpApplication.Entities;
 
-import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EncryptUserDto {
+@ComponentScan
+public class GenerateOtpBean {
     private String userID;
-    private String userPass;
-    private String registerTimestamp;
-
+    private  String secret;
 
 }
