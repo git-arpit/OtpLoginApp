@@ -19,5 +19,5 @@ public class RegisteredUser {
     private String userId;
     private String userPass;
     private String secret;
-    private LocalDateTime recordAdded;
+    private String recordAdded;
 }

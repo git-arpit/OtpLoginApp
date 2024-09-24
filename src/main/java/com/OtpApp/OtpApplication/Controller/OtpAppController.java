@@ -1,8 +1,10 @@
 package com.OtpApp.OtpApplication.Controller;
 
+import com.OtpApp.OtpApplication.Entities.ResponseDto;
 import com.OtpApp.OtpApplication.Entities.UserDto;
-import com.OtpApp.OtpApplication.Service.Appservice;
+import com.OtpApp.OtpApplication.Service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class OtpAppController {
 
     @Autowired
-    Appservice appservice;
+    AppService appservice;
 
     @PostMapping("/activate")
     public ResponseEntity<?> registerUser(@RequestBody UserDto userDto){
-        appservice.activateUser(userDto);
+        ResponseDto responseDto = appservice.activateUser(userDto);
 
-        return  null;
+        return new  ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 }
