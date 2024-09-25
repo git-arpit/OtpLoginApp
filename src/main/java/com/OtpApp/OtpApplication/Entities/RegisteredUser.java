@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "RegisteredUsersTable")
 public class RegisteredUser {
     @Id
-    private String userId;
+    private String userID;
     private String userPass;
     private String secret;
     private String recordAdded;

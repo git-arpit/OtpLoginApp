@@ -5,6 +5,7 @@ import com.OtpApp.OtpApplication.Entities.GenerateOtpBean;
 import com.OtpApp.OtpApplication.Entities.UserDto;
 import com.OtpApp.OtpApplication.Repository.AllUsersRepo;
 import com.OtpApp.OtpApplication.Service.ActivateService;
+import com.OtpApp.OtpApplication.Service.GenerateOtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +19,19 @@ public class OtpAppController {
     @Autowired
     ActivateService appservice;
 
+    @Autowired
+    GenerateOtpService generateOtpService;
+
     @PostMapping({"/activate"})
     public ResponseEntity<?> registerUser(@RequestBody UserDto userDto){
-
         Object responseDto = appservice.activateUser(userDto);
         return new  ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     @PostMapping("/generate")
-    public void generateOtp(@RequestBody GenerateOtpBean generateOtpBean ){
-        appservice.generateOtpService(generateOtpBean);
+    public ResponseEntity<?> generateOtp(@RequestBody GenerateOtpBean generateOtpBean ) {
+        Object otpResponseDto = generateOtpService.generateOtpService(generateOtpBean);
+        return new ResponseEntity<>(otpResponseDto, HttpStatus.OK);
     }
 
 

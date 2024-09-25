@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @AllArgsConstructor
 @ComponentScan
 public class ResponseErrorDto {
+    private String userID;
     private String message;
     private String status;
 }

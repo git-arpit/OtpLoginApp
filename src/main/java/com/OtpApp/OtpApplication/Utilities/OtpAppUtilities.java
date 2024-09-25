@@ -3,19 +3,19 @@ package com.OtpApp.OtpApplication.Utilities;
 import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
 import com.OtpApp.OtpApplication.Entities.EncryptUserDto;
 import com.OtpApp.OtpApplication.Entities.GenerateOtpBean;
+import com.OtpApp.OtpApplication.Entities.OTPResponseDto;
 import com.OtpApp.OtpApplication.Entities.RegisteredUser;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Base64;
-import java.util.Locale;
-import java.util.Optional;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.ByteBuffer;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 @Component
 public class OtpAppUtilities {
@@ -35,8 +35,8 @@ public class OtpAppUtilities {
         return EncryptionUtil.encrypt(OtpAppConstraints.ALGORITHM, userSecret, secretKey, spec);
     }
 
-    public String decryptSecret(String cipher, String encryptedPass) {
-        SecretKey secretKey = EncryptionUtil.getKeyFromPassword(encryptedPass, OtpAppConstraints.SALT);
+    public String decryptSecret(String cipher, String decodedPass) {
+        SecretKey secretKey = EncryptionUtil.getKeyFromPassword(decodedPass, OtpAppConstraints.SALT);
         try {
             String decrypt = EncryptionUtil.decrypt(OtpAppConstraints.ALGORITHM, cipher, secretKey, spec);
             return decrypt;
@@ -69,26 +69,55 @@ public class OtpAppUtilities {
         return (secretFromDB.equals(generateOtpBean.getSecret()));
     }
 
-    public void generateTOTP(GenerateOtpBean generateOtpBean) {
-        System.out.println(Instant.now().getEpochSecond());
-        long epochSecond = Instant.now().getEpochSecond();
-        double floor = Math.floor(epochSecond / 60);
-        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-        String differenceCount = df.format(floor);
-        System.out.println(differenceCount);
-        String hex = Integer.toHexString(Integer.parseInt(differenceCount));
-        System.out.println(hex);
-        // append 0 to make hex 16 digit
-        // assign to byte array of size 8 - m
-        // sign with secret - user shared - k
-        //HMAC SHA generated with m and K
-        //get last 4 bits of HMAC
-        // get its integer(index) value
-        //get 4 values post index
-        // apply binary operation
-        //new binary value
-        // convert into integer
-        // integer % 10 ki power 6 - 6 digit OTP
+    public OTPResponseDto generateTOTP(GenerateOtpBean generateOtpBean, Optional<RegisteredUser> user, long epochTime) {
+        byte[] sharedSecret = decryptSecret(user.get().getSecret(), decoder(user.get().getUserPass())).getBytes();
+        OTPResponseDto responseDto = new OTPResponseDto(OtpAppConstraints.SUCCESS, generateCode(sharedSecret, epochTime), generateOtpBean.getUserID());
+        generateCode(sharedSecret, epochTime);
+        return responseDto;
+    }
 
+    private String generateCode(byte[] sharedSecret, long epochTime) {
+
+        long counter = epochTime / 1000 / OtpAppConstraints.OTPVALIDITY;
+
+
+        byte[] epochBytes = ByteBuffer.allocate(8).putLong(counter).array();
+
+
+        int code = calculateHmac(sharedSecret, epochBytes);
+
+        String finalOtp = String.format("%06d", code);
+
+
+        return finalOtp;
+    }
+
+    private int calculateHmac(byte[] sharedSecret, byte[] ephochBytes) {
+
+        SecretKeySpec specKey = new SecretKeySpec(sharedSecret, OtpAppConstraints.HMACALGORITHM);
+        byte[] encryptedTime;
+        int lastByte;
+        try {
+            Mac mac = Mac.getInstance(OtpAppConstraints.HMACALGORITHM);
+            mac.init(specKey);
+            encryptedTime = mac.doFinal(ephochBytes);
+            lastByte = encryptedTime[encryptedTime.length - 1] & 0xF;
+
+
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
+
+        long truncatedHash = 0;
+
+        for (int i = 0; i < 4; i++) {
+            truncatedHash <<= 8;
+            truncatedHash |= encryptedTime[(lastByte + i)] & 0xFF;
+        }
+        truncatedHash &= 0x7FFFFFFF;
+
+        truncatedHash %= (int) Math.pow(10, 6);
+
+        return (int) truncatedHash;
     }
 }
