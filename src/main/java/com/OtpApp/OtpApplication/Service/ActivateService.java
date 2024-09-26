@@ -5,12 +5,9 @@ import com.OtpApp.OtpApplication.Entities.*;
 import com.OtpApp.OtpApplication.Repository.AllUsersRepo;
 import com.OtpApp.OtpApplication.Repository.RegisterRepo;
 import com.OtpApp.OtpApplication.Utilities.OtpAppUtilities;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Optional;

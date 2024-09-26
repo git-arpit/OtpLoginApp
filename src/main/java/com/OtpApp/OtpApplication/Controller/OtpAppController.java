@@ -1,7 +1,7 @@
 package com.OtpApp.OtpApplication.Controller;
 
 import com.OtpApp.OtpApplication.Entities.AllUsers;
-import com.OtpApp.OtpApplication.Entities.GenerateOtpBean;
+import com.OtpApp.OtpApplication.Entities.OtpBean;
 import com.OtpApp.OtpApplication.Entities.UserDto;
 import com.OtpApp.OtpApplication.Repository.AllUsersRepo;
 import com.OtpApp.OtpApplication.Service.ActivateService;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("app")
 public class OtpAppController {
 
     @Autowired
@@ -22,23 +23,23 @@ public class OtpAppController {
     @Autowired
     GenerateOtpService generateOtpService;
 
-    @PostMapping({"/activate"})
-    public ResponseEntity<?> registerUser(@RequestBody UserDto userDto){
+    @Autowired
+    AutoOtpGeneratorService autoOtpGeneratorService;
+
+    @PostMapping({"/activateOtp"})
+    public ResponseEntity<?> registerUser(@RequestBody UserDto userDto) {
         Object responseDto = appservice.activateUser(userDto);
-        return new  ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/generate")
-    public ResponseEntity<?> generateOtp(@RequestBody GenerateOtpBean generateOtpBean ) {
-        Object otpResponseDto = generateOtpService.generateOtpService(generateOtpBean);
+    @PostMapping("/generateOtp")
+    public ResponseEntity<?> generateOtp(@RequestBody OtpBean otpBean) {
+        Object otpResponseDto = generateOtpService.generateOtpService(otpBean);
         return new ResponseEntity<>(otpResponseDto, HttpStatus.OK);
     }
 
-
-
     @GetMapping("fill")
-    public String fillUserData(){
-
+    public String fillUserData() {
         AllUsers allUsers = new AllUsers("212121");
         AllUsers allUsers1 = new AllUsers("222222");
         AllUsers allUsers2 = new AllUsers("252525");
