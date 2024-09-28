@@ -42,6 +42,10 @@ public class ActivateService {
             responseErrorDto.setMessage(customMsg.getInvalidUser());
             responseErrorDto.setStatus(OtpAppConstraints.FAIL);
             return responseErrorDto;
+        }else if (userRecord.get().isLocked()){
+            responseErrorDto.setMessage("User's Account is locked");
+            responseErrorDto.setStatus(OtpAppConstraints.FAIL);
+            return responseErrorDto;
         }
         if (registerRepo.findById(userDto.getUserID()).isEmpty()) {
             String secret = registerUser(userDto);
@@ -66,7 +70,7 @@ public class ActivateService {
         EncryptUserDto encryptUserDto = new EncryptUserDto(userDto.getUserID(), userDto.getPassword(), currentTime);
         String userSecret = otpAppUtilities.generateSecret(encryptUserDto);
         String encodedSecret = otpAppUtilities.encryptSecret(encryptUserDto.getUserPass(), userSecret);
-        RegisteredUser registeredUser = new RegisteredUser(userDto.getUserID(), encodedPass, encodedSecret, currentTime,OtpAppConstraints.DEFAULTOTP);
+        RegisteredUser registeredUser = new RegisteredUser(userDto.getUserID(), encodedPass, encodedSecret, currentTime,OtpAppConstraints.DEFAULTOTP, OtpAppConstraints.INIT_COUNTER);
         persistUser(registeredUser);
         return userSecret;
     }
@@ -75,6 +79,3 @@ public class ActivateService {
         registerRepo.save(registeredUser);
     }
 }
-
-
-

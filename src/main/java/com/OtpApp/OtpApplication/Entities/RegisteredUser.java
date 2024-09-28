@@ -19,4 +19,5 @@ public class RegisteredUser {
     private String secret;
     private String recordAdded;
     private String usedOtp;
+    private int invalidAttempts;
 }

@@ -13,9 +13,10 @@ public class OtpAppConstraints {
     public static final int OTPVALIDITY = 60;
     public static final boolean TRUE = true;
     public static final boolean FALSE = false;
-    public static final int FETCH_INTERVAL = 10;
+    public static final int INIT_COUNTER = 0;
     public static final int DURATION = 10;
     public static final String DEFAULTOTP = "000000";
     public static final String ACTIVATE = "activate";
     public static final String VALIDATE = "validate";
+    public static final int MAX_INVALID_ATTEMPTS = 3;
 }

@@ -15,4 +15,5 @@ import lombok.NoArgsConstructor;
 public class AllUsers {
     @Id
     private String userID;
+    private boolean isLocked;
 }

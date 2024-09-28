@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("file:F:\\OtpApp\\src\\main\\java\\com\\OtpApp\\OtpApplication\\Properties\\customMsg.properties")
+@PropertySource("file:F:\\OtpApp\\OtpLoginApp\\src\\main\\java\\com\\OtpApp\\OtpApplication\\Properties\\customMsg.properties")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -27,7 +27,7 @@ public class ValidateOtpService {
             return new ResponseErrorDto(validateOtpDto.getUserID(),invalidParam.getMessage(), OtpAppConstraints.FAIL);
         } else {
             Optional<RegisteredUser> user = registerRepo.findById(validateOtpDto.getUserID());
-            if (!user.isPresent()) {
+            if (user.isEmpty()) {
                 return new ResponseErrorDto(validateOtpDto.getUserID(), customMsg.getValidationError(), OtpAppConstraints.FAIL);
             } else {
                 OtpBean otpBean = new OtpBean(user.get().getUserID(),user.get().getSecret());
