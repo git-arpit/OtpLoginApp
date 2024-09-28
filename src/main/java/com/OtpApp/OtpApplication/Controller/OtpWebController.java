@@ -1,6 +1,6 @@
 package com.OtpApp.OtpApplication.Controller;
 
-import com.OtpApp.OtpApplication.Entities.OtpBean;
+import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
 import com.OtpApp.OtpApplication.Entities.ValidateOtpDto;
 import com.OtpApp.OtpApplication.Service.ValidateOtpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ public class OtpWebController {
     private ValidateOtpService validateOtpService;
 
     @PostMapping("validateOtp")
-    public ResponseEntity<?> validateOtp(@RequestBody ValidateOtpDto validateOtpDto){
-        Object validation = validateOtpService.validation(validateOtpDto);
+    public ResponseEntity<?> validateOtp(@RequestBody ValidateOtpDto validateOtpDto) {
+        Object validation = validateOtpService.validation(validateOtpDto, OtpAppConstraints.VALIDATE);
         return new ResponseEntity<>(validation, HttpStatus.OK);
 
     }

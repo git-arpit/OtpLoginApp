@@ -3,14 +3,13 @@ package com.OtpApp.OtpApplication.Entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
+@Component
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ComponentScan
-public class OtpBean {
-    private String userID;
-    private String secret;
-
+public class ParamValidatorDao {
+    private boolean status;
+    private String message;
 }

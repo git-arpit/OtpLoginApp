@@ -26,7 +26,6 @@ public class EncryptionUtil {
             return secret;
         } catch (Exception exception) {
             SecretKey nullKey = null;
-            System.out.println(exception.getMessage());
             return nullKey;
         }
     }
@@ -48,7 +47,6 @@ public class EncryptionUtil {
             return Base64.getEncoder()
                     .encodeToString(cipherText);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
             return OtpAppConstraints.FAIL;
         }
     }

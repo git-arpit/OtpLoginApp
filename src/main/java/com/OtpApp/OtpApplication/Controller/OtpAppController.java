@@ -1,5 +1,6 @@
 package com.OtpApp.OtpApplication.Controller;
 
+import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
 import com.OtpApp.OtpApplication.Entities.AllUsers;
 import com.OtpApp.OtpApplication.Entities.OtpBean;
 import com.OtpApp.OtpApplication.Entities.UserDto;
@@ -23,9 +24,6 @@ public class OtpAppController {
     @Autowired
     GenerateOtpService generateOtpService;
 
-    @Autowired
-    AutoOtpGeneratorService autoOtpGeneratorService;
-
     @PostMapping({"/activateOtp"})
     public ResponseEntity<?> registerUser(@RequestBody UserDto userDto) {
         Object responseDto = appservice.activateUser(userDto);
@@ -34,7 +32,8 @@ public class OtpAppController {
 
     @PostMapping("/generateOtp")
     public ResponseEntity<?> generateOtp(@RequestBody OtpBean otpBean) {
-        Object otpResponseDto = generateOtpService.generateOtpService(otpBean);
+
+        Object otpResponseDto = generateOtpService.generateOtpService(otpBean, OtpAppConstraints.ACTIVATE);
         return new ResponseEntity<>(otpResponseDto, HttpStatus.OK);
     }
 
