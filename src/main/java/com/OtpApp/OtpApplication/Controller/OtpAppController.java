@@ -2,8 +2,8 @@ package com.OtpApp.OtpApplication.Controller;
 
 import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
 import com.OtpApp.OtpApplication.Entities.AllUsers;
-import com.OtpApp.OtpApplication.Entities.OtpBean;
-import com.OtpApp.OtpApplication.Entities.UserDto;
+import com.OtpApp.OtpApplication.Bean.OtpBean;
+import com.OtpApp.OtpApplication.Bean.UserDto;
 import com.OtpApp.OtpApplication.Repository.AllUsersRepo;
 import com.OtpApp.OtpApplication.Service.ActivateService;
 import com.OtpApp.OtpApplication.Service.GenerateOtpService;
@@ -37,6 +37,7 @@ public class OtpAppController {
         return new ResponseEntity<>(otpResponseDto, HttpStatus.OK);
     }
 
+    // For Testing Purpose only
     @GetMapping("fill")
     public String fillUserData() {
         AllUsers allUsers = new AllUsers("212121");

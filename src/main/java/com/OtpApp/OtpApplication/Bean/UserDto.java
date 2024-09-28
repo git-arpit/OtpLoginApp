@@ -1,4 +1,5 @@
-package com.OtpApp.OtpApplication.Entities;
+package com.OtpApp.OtpApplication.Bean;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ValidateOtpDto {
+public class UserDto {
     private String userID;
-    private String otp;
+    private String password;
 }

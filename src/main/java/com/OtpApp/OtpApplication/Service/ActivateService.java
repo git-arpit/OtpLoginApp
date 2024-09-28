@@ -1,5 +1,9 @@
 package com.OtpApp.OtpApplication.Service;
 
+import com.OtpApp.OtpApplication.Bean.EncryptUserDto;
+import com.OtpApp.OtpApplication.Bean.ResponseDto;
+import com.OtpApp.OtpApplication.Bean.ResponseErrorDto;
+import com.OtpApp.OtpApplication.Bean.UserDto;
 import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
 import com.OtpApp.OtpApplication.Entities.*;
 import com.OtpApp.OtpApplication.Properties.CustomMsg;

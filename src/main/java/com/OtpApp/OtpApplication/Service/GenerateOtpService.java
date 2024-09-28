@@ -1,10 +1,10 @@
 package com.OtpApp.OtpApplication.Service;
 
 import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
-import com.OtpApp.OtpApplication.Entities.OtpBean;
-import com.OtpApp.OtpApplication.Entities.ParamValidatorDao;
+import com.OtpApp.OtpApplication.Bean.OtpBean;
+import com.OtpApp.OtpApplication.Bean.ParamValidatorDao;
 import com.OtpApp.OtpApplication.Entities.RegisteredUser;
-import com.OtpApp.OtpApplication.Entities.ResponseErrorDto;
+import com.OtpApp.OtpApplication.Bean.ResponseErrorDto;
 import com.OtpApp.OtpApplication.Properties.CustomMsg;
 import com.OtpApp.OtpApplication.Repository.RegisterRepo;
 import com.OtpApp.OtpApplication.Utilities.OtpAppUtilities;

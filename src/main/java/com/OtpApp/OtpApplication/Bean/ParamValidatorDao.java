@@ -1,4 +1,4 @@
-package com.OtpApp.OtpApplication.Entities;
+package com.OtpApp.OtpApplication.Bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

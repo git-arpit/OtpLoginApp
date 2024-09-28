@@ -1,4 +1,4 @@
-package com.OtpApp.OtpApplication.Entities;
+package com.OtpApp.OtpApplication.Bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 @AllArgsConstructor
 @NoArgsConstructor
 @ComponentScan
-public class OTPResponseDto {
-    private String message;
-    private String otp;
+public class OtpBean {
     private String userID;
+    private String secret;
+
 }

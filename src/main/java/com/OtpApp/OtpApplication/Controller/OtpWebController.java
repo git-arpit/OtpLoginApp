@@ -1,7 +1,7 @@
 package com.OtpApp.OtpApplication.Controller;
 
 import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
-import com.OtpApp.OtpApplication.Entities.ValidateOtpDto;
+import com.OtpApp.OtpApplication.Bean.ValidateOtpDto;
 import com.OtpApp.OtpApplication.Service.ValidateOtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

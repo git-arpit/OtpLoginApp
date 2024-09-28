@@ -1,14 +1,14 @@
-package com.OtpApp.OtpApplication.Entities;
-
+package com.OtpApp.OtpApplication.Bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@NoArgsConstructor
+public class ResponseDto {
     private String userID;
-    private String password;
+    private String secret;
+    private String message;
 }

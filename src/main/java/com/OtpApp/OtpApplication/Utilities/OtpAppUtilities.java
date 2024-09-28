@@ -1,5 +1,6 @@
 package com.OtpApp.OtpApplication.Utilities;
 
+import com.OtpApp.OtpApplication.Bean.*;
 import com.OtpApp.OtpApplication.Constraints.OtpAppConstraints;
 import com.OtpApp.OtpApplication.Entities.*;
 import com.OtpApp.OtpApplication.Properties.CustomMsg;
@@ -13,7 +14,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -39,7 +39,6 @@ public class OtpAppUtilities {
 
     public String decryptSecret(String cipher, String decodedPass) {
         SecretKey secretKey = EncryptionUtil.getKeyFromPassword(decodedPass, OtpAppConstraints.SALT);
-        System.out.println("Cipher : " + cipher);
         try {
             String decrypt = EncryptionUtil.decrypt(OtpAppConstraints.ALGORITHM, cipher, secretKey, spec);
             return decrypt;
@@ -119,14 +118,12 @@ public class OtpAppUtilities {
 
     public OTPResponseDto generateTOTP(OtpBean otpBean, Optional<RegisteredUser> user, long epochTime, String taskName) {
         byte[] sharedSecret;
-
-        sharedSecret = encryptSecret(user.get().getUserPass(), otpBean.getSecret()).getBytes();
-
-        // sharedSecret = encryptSecret(user.get().getUserPass(), user.get().getSecret()).getBytes();
-
-        System.out.println(Arrays.toString(sharedSecret));
+        if(taskName.equalsIgnoreCase(OtpAppConstraints.VALIDATE)){
+            sharedSecret = encryptSecret(user.get().getUserPass(),decryptSecret(user.get().getSecret(),decoder(user.get().getUserPass()))).getBytes();
+        }else {
+            sharedSecret = encryptSecret(user.get().getUserPass(), otpBean.getSecret()).getBytes();
+        }
         OTPResponseDto responseDto = new OTPResponseDto(OtpAppConstraints.SUCCESS, generateCode(sharedSecret, epochTime), otpBean.getUserID());
-        System.out.println("Generate OTP " + generateCode(sharedSecret, epochTime));
         return responseDto;
     }
 
