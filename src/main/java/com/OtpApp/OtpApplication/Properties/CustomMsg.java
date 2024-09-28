@@ -41,5 +41,13 @@ public class CustomMsg {
     private String reactiveSuccess;
     @Value("${otpReused}")
     private String otpReused;
+    @Value("${accLock}")
+    private String accLock;
+    @Value("${attempt2}")
+    private String attempt2;
+    @Value("${unlockedFail}")
+    private String unlockedFail;
+    @Value("${unlockedSuccess}")
+    private String unlockedSuccess;
 
 }

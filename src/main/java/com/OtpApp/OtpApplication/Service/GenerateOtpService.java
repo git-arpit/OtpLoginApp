@@ -34,7 +34,7 @@ public class GenerateOtpService {
             Optional<RegisteredUser> user = registerRepo.findById(otpBean.getUserID());
             if (user.isPresent() && user.get().getInvalidAttempts() >= OtpAppConstraints.MAX_INVALID_ATTEMPTS)
                 {
-                    return new ResponseErrorDto(otpBean.getUserID(), "User's Account is Locked", OtpAppConstraints.FAIL);
+                    return new ResponseErrorDto(otpBean.getUserID(), customMsg.getAccLock(), OtpAppConstraints.FAIL);
                 }
                 if (user.isPresent()) {
                     long epochTime = System.currentTimeMillis();

@@ -43,7 +43,7 @@ public class ActivateService {
             responseErrorDto.setStatus(OtpAppConstraints.FAIL);
             return responseErrorDto;
         }else if (userRecord.get().isLocked()){
-            responseErrorDto.setMessage("User's Account is locked");
+            responseErrorDto.setMessage(customMsg.getAccLock());
             responseErrorDto.setStatus(OtpAppConstraints.FAIL);
             return responseErrorDto;
         }
