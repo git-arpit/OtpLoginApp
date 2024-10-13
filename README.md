@@ -16,7 +16,7 @@
 - ✅ **Account Locking:** User account locks after 3 consecutive failed OTP validation attempts.
 - ✅ **Unlock Service:** Locked users can reactivate their accounts by using the unlock service.
 - ✅ **Offline Scaling:** Designed to scale offline.
-
+- ✅ **Externalised Property File:** Used externalised property file to create the response messeges.
 ---
 
 ## 🌟 Features
